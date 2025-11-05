@@ -2,10 +2,10 @@ const express = require("express");
 
 const app = express();
 
-app.use((req, res) => {
-  res.send("Hello welcome to the learning nodejs");
+app.use("/hello", (req, res) => {
+  res.send("Hello from the server");
 });
 
-app.listen(3000, () => {
-  console.log("Server is successfull listen on the port 3000");
+app.listen(7000, () => {
+  console.log("The server is listing on the port 7000");
 });
