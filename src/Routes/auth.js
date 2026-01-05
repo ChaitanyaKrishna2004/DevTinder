@@ -1,12 +1,13 @@
 const express = require("express");
 const authRoute = express.Router();
-
 const { validateSignUpdata } = require("../utils/validateuser.js");
 const User = require("../Models/user.js");
+const bcrypt = require("bcrypt");
 
 authRoute.post("/signup", async (req, res) => {
   try {
     const { firstName, lastName, emailId, password } = req.body;
+    console.log(`${firstName} ${lastName} ${emailId} ${password}`);
     //validation of data
     validateSignUpdata(req);
 
@@ -42,7 +43,6 @@ authRoute.post("/login", async (req, res) => {
     }
 
     const isPasswordValid = await user.isPasswordValid(password, user.password);
-    // console.log(user.password);
     if (isPasswordValid) {
       const token = await user.getJWT();
       console.log(token);

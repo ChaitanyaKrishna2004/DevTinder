@@ -105,6 +105,7 @@ Authentication, JWT & Cookies
 - Create userSchema method to getJWT()
 - Create UserSchema method to comparepassword(passwordInputByUser)
 
+Diving into the APls and express Router
 
 - Explore tinder APIs
 - Create a list all API you can think of in Dev Tinder
@@ -113,3 +114,19 @@ Authentication, JWT & Cookies
 - Create routes folder for managing auth, profile, request routers
 - create authRouter, profileRouter, requestRouter
 - Import these routers in app.js
+- Create POST /Logout API
+- Create PATCH /profile/edit
+- Create PATCH /profile/password API = forgot password API
+- Make you validate all data in every POST, PATCH apis
+
+- Create Connnection Request Schema
+- Send Connection Request API
+- Proper validation of Data
+- Think about ALL corner cases
+- $or query $and query in mongoose - https://www.mongodb.com/docs/manual/reference/operator/query-Logical/
+- schema.pre("save") function
+- Read more about indexes in MongoDB
+- Why do we need index in DB?
+- What is the advantages and disadvantage of creating?
+- Read this arcticle about compond indexes - mongodb.com/docs/manual/core/indexes/index-types/index-compound/
+- ALWAYS THINK ABOUT CORNER CASES
