@@ -34,8 +34,17 @@ authRoute.post("/signup", async (req, res) => {
 
 authRoute.post("/login", async (req, res) => {
   console.log("this is the login api");
+  // console.log(req);
   try {
     const { emailId, password } = req.body;
+    if (!emailId) {
+      console.log("Invalid email id");
+      return res.status(400).send("Enter the emailid");
+    }
+    if (!password) {
+      console.log("Invalid password");
+      return res.status(400).send("Enter the password");
+    }
     // getting the user data
     const user = await User.findOne({ emailId: emailId });
     if (!user) {
