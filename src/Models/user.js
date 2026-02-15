@@ -70,7 +70,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 userSchema.methods.getJWT = async function () {
@@ -84,7 +84,7 @@ userSchema.methods.getJWT = async function () {
 
 userSchema.methods.isPasswordValid = async function (
   hashPassword,
-  userPassword
+  userPassword,
 ) {
   const isPassword = await bcrypt.compare(hashPassword, userPassword);
   return isPassword;

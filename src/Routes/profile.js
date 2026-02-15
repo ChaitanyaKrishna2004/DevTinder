@@ -12,7 +12,7 @@ profileRoute.get("/profile/view", userAuth, async (req, res) => {
     res.status(200).send(user);
   } catch (error) {
     console.log(error);
-    res.status(404).send("Error :", error.message);
+    res.status(404).send("Error :" + error.message);
   }
 });
 
@@ -30,7 +30,7 @@ profileRoute.patch("/profile/edit", userAuth, async (req, res) => {
     res.send("Profile was successful updated");
   } catch (error) {
     console.log(error);
-    res.status(404).send("Error :", error.message);
+    res.status(404).send("Error :" + error.message);
   }
 });
 
@@ -60,7 +60,7 @@ profileRoute.patch("/profile/password", userAuth, async (req, res) => {
     res.send("Password is updated");
   } catch (error) {
     console.log(error);
-    res.status(404).send("Error :", error.message);
+    res.status(404).send("Error :" + error.message);
   }
 });
 
