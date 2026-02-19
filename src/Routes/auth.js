@@ -34,15 +34,14 @@ authRoute.post("/signup", async (req, res) => {
 
 authRoute.post("/login", async (req, res) => {
   console.log("this is the login api");
-  // console.log(req);
   try {
     const { emailId, password } = req.body;
     if (!emailId) {
-      console.log("Invalid email id");
+      // console.log("Invalid email id");
       return res.status(400).send("Enter the emailid");
     }
     if (!password) {
-      console.log("Invalid password");
+      // console.log("Invalid password");
       return res.status(400).send("Enter the password");
     }
     // getting the user data
@@ -54,19 +53,19 @@ authRoute.post("/login", async (req, res) => {
     const isPasswordValid = await user.isPasswordValid(password, user.password);
     if (isPasswordValid) {
       const token = await user.getJWT();
-      console.log(token);
+      // console.log(token);
       if (!token) {
         throw new Error("Token is Invalid");
       }
       res
         .status(200)
         .cookie("token", token, { expiresIn: Date.now() + 5 * 1000 })
-        .send("Login was successful");
+        .send(user);
     } else {
       throw new Error("Invalid details");
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(400).send("Error:" + err.message);
   }
 });
