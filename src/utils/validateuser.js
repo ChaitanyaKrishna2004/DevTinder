@@ -20,7 +20,7 @@ const validteProfileEdit = (req, res) => {
   if (age && age < 18) {
     throw new Error("Age should be 18+");
   }
-  if (gender && !["male", "female", "other"].includes(gender)) {
+  if (gender && !["Male", "Female", "Other"].includes(gender)) {
     throw new Error("Invalid gender");
   }
   // if (validator.isURL(photoUrl)) {
