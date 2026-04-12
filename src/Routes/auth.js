@@ -7,13 +7,11 @@ const bcrypt = require("bcrypt");
 authRoute.post("/signup", async (req, res) => {
   try {
     const { firstName, lastName, emailId, password } = req.body;
-    console.log(`${firstName} ${lastName} ${emailId} ${password}`);
     //validation of data
     validateSignUpdata(req);
 
     //hashing the password
     const passwordHash = await bcrypt.hash(password, 10);
-    console.log(passwordHash);
 
     const user = new User({
       firstName,
@@ -59,7 +57,7 @@ authRoute.post("/login", async (req, res) => {
       }
       res
         .status(200)
-        .cookie("token", token, { expiresIn: Date.now() + 5 * 1000 })
+        .cookie("token", token, { expiresIn: Date.now() + 7 * 24 * 60 * 1000 })
         .send(user);
     } else {
       throw new Error("Invalid details");

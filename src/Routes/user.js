@@ -13,7 +13,6 @@ userRoute.get("/requests/received", userAuth, async (req, res) => {
     if (!user) {
       throw new Error("User Not found");
     }
-    console.log(user._id);
 
     const Request_recevied = await ConnectionRequest.find({
       toUserId: user._id,
@@ -52,7 +51,6 @@ userRoute.get("/connection", userAuth, async (req, res) => {
     })
       .populate("fromUserId", USER_SAFE_DATA)
       .populate("toUserId", USER_SAFE_DATA);
-    console.log(connectionRequest);
 
     const data = connectionRequest.map((row) => {
       if (row.fromUserId._id.toString() === Loginuser._id.toString()) {
@@ -61,17 +59,14 @@ userRoute.get("/connection", userAuth, async (req, res) => {
       return row.fromUserId;
     });
 
-    res.status(400).send(data);
+    res.status(200).send(data);
   } catch (error) {
-    console.log(error);
     res.status(400).send("Error :" + error.message);
   }
 });
 
 userRoute.get("/feed", userAuth, async (req, res) => {
   try {
-    console.log("Cookies:", req.cookies);
-    console.log("Headers:", req.headers.authorization);
     // User should see all the user cards except
     // 0. his own card
     // 1. his connections
@@ -80,13 +75,11 @@ userRoute.get("/feed", userAuth, async (req, res) => {
 
     const loggedInUser = req.user;
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 2;
-    console.log(`${page} ${limit}`);
+    const limit = parseInt(req.query.limit) || 1;
     const skip = (page - 1) * limit;
     const connectionRequest = await ConnectionRequest.find({
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
     }).select("fromUserId toUserId");
-    // console.log(connectionRequest
 
     const hideUsersFromfeed = new Set();
 
@@ -94,8 +87,6 @@ userRoute.get("/feed", userAuth, async (req, res) => {
       hideUsersFromfeed.add(req.fromUserId.toString());
       hideUsersFromfeed.add(req.toUserId.toString());
     });
-
-    // console.log(hideUsersFromfeed);
 
     const user = await User.find({
       $and: [
@@ -111,8 +102,8 @@ userRoute.get("/feed", userAuth, async (req, res) => {
         },
       ],
     })
-      .skip(skip)
-      .limit(limit);
+      // .skip(skip)
+      // .limit(limit);
 
     res.status(200).send(user);
   } catch (error) {
