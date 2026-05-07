@@ -8,7 +8,7 @@ const userAuth = async (req, res, next) => {
       // throw new Error("Invalid Token");
       return res.status(401).send("Invalid Token!!!")
     }
-    var decoded = await jwt.verify(token, "DevTinder@123");
+    var decoded = await jwt.verify(token, process.env.JWT_SECRET);
     if (!decoded) {
       throw new Error("Invalid Token");
     }

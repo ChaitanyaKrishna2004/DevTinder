@@ -1,5 +1,6 @@
+require('dotenv').config()
 const express = require("express");
-const connectDB = require("./config/database.js");
+const connectDB = require("./src/config/database.js");
 const app = express();
 const { default: mongoose } = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -14,10 +15,10 @@ app.use(
   }),
 );
 
-const { authRoute } = require("./Routes/auth.js");
-const { profileRoute } = require("./Routes/profile.js");
-const { requestRoute } = require("./Routes/request.js");
-const { userRoute } = require("./Routes/user.js");
+const { authRoute } = require("./src/Routes/auth.js");
+const { profileRoute } = require("./src/Routes/profile.js");
+const { requestRoute } = require("./src/Routes/request.js");
+const { userRoute } = require("./src/Routes/user.js");
 
 app.use("/", authRoute);
 app.use("/", profileRoute);
@@ -27,7 +28,7 @@ app.use("/user", userRoute);
 connectDB()
   .then(() => {
     console.log("Database connection established...");
-    app.listen(7000, () => {
+    app.listen(process.env.PORT, () => {
       console.log("The server is listing on the port 7000");
     });
   })
